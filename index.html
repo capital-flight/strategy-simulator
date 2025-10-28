@@ -6,185 +6,202 @@
 <title>Trading Strategy Simulator</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
+/* === Base layout (mobile-first) === */
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #eee;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;      /* stack by default */
+  align-items: center;
+  gap: 20px;
+}
+
+.settings {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+}
+
+.settings .row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+.settings label {
+  margin-left: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.settings input, select {
+  padding: 4px;
+  width: 95px;
+  text-align: center;
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+}
+
+#autoControls button,
+#toggleModel {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #333;
+  color: #eee;
+  border: 1px solid #666;
+  transition: background 0.2s;
+}
+#toggleModel {
+  width: auto;
+  border-radius: 10px;
+  padding: 8px;
+  height: auto;
+  margin-top: 10px;
+}
+#autoControls button:hover,
+#toggleModel:hover {
+  background: #555;
+}
+
+#history {
+  margin-top: 20px;
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  font-family: monospace;
+  text-align: left;
+  white-space: normal;
+  width: 100%;
+}
+
+.main {
+  text-align: center;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1000px;
+}
+
+#autoControls {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 18px;
+  display: none;
+}
+
+#stats {
+  margin-top: 20px;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  font-family: monospace;
+  text-align: left;
+}
+
+.pf-line {
+  font-size: 18px;
+}
+#annualReturn {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.green { color: lime; }
+.red { color: red; }
+.smallWin { color: #ddd; }
+.bigWin { color: lime; }
+.outlierWin { color: lime; }
+.smallLoss { color: #FF7F7F; }
+.bigLoss, .outlierLoss { color: red; }
+.hidden { display: none; }
+
+/* === Charts & Tables (fluid by default) === */
+#chartContainer,
+#yearlyChart,
+#yearlyTable {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+#chartContainer canvas,
+#yearlyChart {
+  display: block;
+  width: 100% !important;
+  height: auto;
+}
+
+#yearlyTable {
+  text-align: left;
+  font-size: 13px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+#yearlyTable th, #yearlyTable td {
+  padding: 6px 8px;
+  border: none;
+  text-align: center;
+}
+table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* === Desktop layout === */
+@media (min-width: 901px) {
   body {
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: #eee;
-    padding: 20px;
-    display: flex;
+    flex-direction: row;
     justify-content: center;
     gap: 40px;
+    padding: 20px;
   }
-  .settings {
-    text-align: left;
-    min-width: 260px;
-    display: flex;
-    flex-direction: column;
-  }
-  .settings .row {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-  }
-  .settings label {
-    margin-left: 8px;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-  .settings input, select {
-    padding: 4px;
-    width: 95px;
-    text-align: center;
-    background: #222;
-    color: #eee;
-    border: 1px solid #444;
-  }
-  #autoControls button, #toggleModel {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    background: #333;
-    color: #eee;
-    border: 1px solid #666;
-    transition: background 0.2s;
-  }
-  #toggleModel {
-    width: auto;
-    border-radius: 10px;
-    padding: 8px;
-    height: auto;
-    margin-top: 10px;
-  }
-  #autoControls button:hover, #toggleModel:hover {
-    background: #555;
-  }
-  #history {
-    margin-top: 20px;
-    max-height: 700px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-top: 1px solid #333;
-    padding-top: 10px;
-    font-family: monospace;
-    text-align: left;
-    white-space: nowrap;
-    min-width: 300px;
-  }
-  .main {
-    text-align: center;
-    flex-grow: 1;
-    max-width: 1000px;
-  }
-  #autoControls {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  #status {
-    margin-top: 20px;
-    font-size: 18px;
-    display: none;
-  }
-  #stats {
-    margin-top: 20px;
-    border-top: 1px solid #333;
-    padding-top: 10px;
-    font-family: monospace;
-    text-align: left;
-  }
-  .pf-line {
-    font-size: 18px;
-  }
-  #annualReturn {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .green { color: lime; }
-  .red { color: red; }
-  .smallWin { color: #ddd; }
-  .bigWin { color: lime; }
-  .outlierWin { color: lime; }
-  .smallLoss { color: #FF7F7F; }
-  .bigLoss, .outlierLoss { color: red; }
-  .hidden { display: none; }
 
-  /* Fixed desktop widths */
-  #chartContainer,
-  #yearlyChart,
-  #yearlyTable {
-    width: 800px;
-    margin: 0px auto;
+  .settings {
+    min-width: 260px;
+    max-width: 260px;
   }
+
+  #chartContainer,
+  #yearlyChart {
+    width: 800px;
+  }
+
+  #yearlyTable {
+    width: 500px;
+  }
+
   #chartContainer canvas {
     width: 800px;
     height: 400px;
   }
+
   #yearlyChart {
-    width: 800px;
     height: 400px;
   }
-  #yearlyTable {
-    width: 500px;
-    text-align: left;
-    font-size: 13px;
-    border-collapse: collapse;
-    table-layout: fixed;
+
+  #history {
+    white-space: nowrap;
   }
-  #yearlyTable th, #yearlyTable td {
-    padding: 6px 8px;
-    border: none;
-    text-align: center;
-  }
+}
 
-  /* === Responsive adjustments for mobile === */
-  @media (max-width: 900px) {
-    html, body {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    body {
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding: 10px;
-    }
-
-    #chartContainer,
-    #yearlyChart,
-    #yearlyTable {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
-    }
-
-    #chartContainer canvas,
-    #yearlyChart {
-      width: 100% !important;
-      height: auto;
-    }
-
-    .settings {
-      min-width: auto;
-      width: 100%;
-    }
-
-    #history {
-      min-width: auto;
-      width: 100%;
-      white-space: normal;
-    }
-
-    table {
-      display: block;
-      overflow-x: auto;
-    }
-  }
 </style>
 </head>
 <body>
