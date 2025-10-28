@@ -165,6 +165,24 @@ table {
   box-sizing: border-box;
 }
 
+/* === Mobile adjustments === */
+@media (max-width: 900px) {
+  #autoControls {
+    flex-wrap: wrap;            /* allow wrapping */
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+    text-align: center;
+  }
+
+  #autoControls input,
+  #autoControls select,
+  #autoControls button {
+    flex: 1 1 auto;
+    min-width: 60px;
+  }
+}
+
 /* === Desktop layout === */
 @media (min-width: 901px) {
   body {
@@ -201,22 +219,7 @@ table {
     white-space: nowrap;
   }
 }
-@media (max-width: 900px) {
-  #autoControls {
-    flex-wrap: wrap;            /* allow controls to wrap to a new line */
-    justify-content: center;    /* center wrapped rows */
-    width: 100%;
-    overflow-x: auto;           /* safety in case it still overflows */
-    text-align: center;
-  }
 
-  #autoControls input,
-  #autoControls select,
-  #autoControls button {
-    flex: 1 1 auto;
-    min-width: 60px;
-  }
-}
 </style>
 </head>
 <body>
