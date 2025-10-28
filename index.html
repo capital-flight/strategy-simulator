@@ -181,6 +181,16 @@ table {
     flex: 1 1 auto;
     min-width: 60px;
   }
+
+  /* make charts taller on mobile */
+  #chartContainer canvas,
+  #yearlyChart {
+    min-height: 300px;
+  }
+
+  .main {
+    padding-top: 10px;
+  }
 }
 
 /* === Desktop layout === */
@@ -195,6 +205,12 @@ table {
   .settings {
     min-width: 260px;
     max-width: 260px;
+    flex: 0 0 260px;  /* keeps left column in place */
+  }
+
+  .main {
+    flex: 1 1 auto;
+    max-width: 1000px;
   }
 
   #chartContainer,
@@ -219,7 +235,6 @@ table {
     white-space: nowrap;
   }
 }
-
 </style>
 </head>
 <body>
