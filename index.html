@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trading Strategy Simulator</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -143,6 +143,11 @@
 
   /* === Responsive adjustments for mobile === */
   @media (max-width: 900px) {
+    html, body {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     body {
       flex-direction: column;
       align-items: center;
@@ -155,11 +160,12 @@
     #yearlyTable {
       width: 100%;
       max-width: 100%;
+      overflow-x: auto;
     }
 
     #chartContainer canvas,
     #yearlyChart {
-      width: 100%;
+      width: 100% !important;
       height: auto;
     }
 
@@ -173,9 +179,13 @@
       width: 100%;
       white-space: normal;
     }
+
+    table {
+      display: block;
+      overflow-x: auto;
+    }
   }
 </style>
-
 </head>
 <body>
 
@@ -223,13 +233,12 @@
   </div>
 
   <button id="toggleModel">Switch to Multinomial Model</button>
-
   <div id="history"></div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
-  <h1>Trading Strategy Simulator</h1>
+  <h1>Trading Simulator</h1>
   <div id="autoControls">
     Auto-bet:
     <input type="number" id="autoCount" value="100">
@@ -249,10 +258,10 @@
   <div id="stats">
     Bets: <span id="statBets">0</span><br>
     <span class="pf-line">Annualized Return: <span id="annualReturn">0</span>%</span><br>
-    <span class="pf-line">Max Drawdown: <span id="drawdown">0</span>%</span><br>
     <span class="pf-line">Profit Factor: <span id="statPF">0</span></span><br>
-    Avg Win Trade: <span id="statAvgWin">0</span>%<br>
-    Avg Loss Trade: <span id="statAvgLoss">0</span>%<br>
+    <span class="pf-line">Max Drawdown: <span id="drawdown">0</span>%</span><br>
+    Avg Win Trade: <span id="statAvgWin" class="green">0</span>%<br>
+    Avg Loss Trade: <span id="statAvgLoss" class="red">0</span>%<br>
     Win %: <span id="statWinPct">0</span>%<br>
     Longest Losing Streak: <span id="longestLosingStreak">0</span>
   </div>
@@ -305,7 +314,6 @@ const pnlTokens = [];
 const pctMoves = [];
 const wonFlags = [];
 
-/* ===== Charts ===== */
 /* ===== Charts (Y axis on the right) ===== */
 const equityCtx = document.getElementById('equityChart').getContext('2d');
 const equityData = {
