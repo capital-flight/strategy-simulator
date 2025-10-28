@@ -13,7 +13,7 @@ body {
   color: #eee;
   padding: 20px;
   display: flex;
-  flex-direction: column;      /* stack by default */
+  flex-direction: column;
   align-items: center;
   gap: 20px;
 }
@@ -168,7 +168,7 @@ table {
 /* === Mobile adjustments === */
 @media (max-width: 900px) {
   #autoControls {
-    flex-wrap: wrap;            /* allow wrapping */
+    flex-wrap: wrap;
     justify-content: center;
     width: 100%;
     overflow-x: auto;
@@ -182,10 +182,12 @@ table {
     min-width: 60px;
   }
 
-  /* make charts taller on mobile */
+  /* better chart scaling on mobile */
   #chartContainer canvas,
   #yearlyChart {
-    min-height: 300px;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 600px;
   }
 
   .main {
@@ -198,6 +200,7 @@ table {
   body {
     flex-direction: row;
     justify-content: center;
+    align-items: flex-start;  /* top-align the columns */
     gap: 40px;
     padding: 20px;
   }
@@ -205,7 +208,7 @@ table {
   .settings {
     min-width: 260px;
     max-width: 260px;
-    flex: 0 0 260px;  /* keeps left column in place */
+    flex: 0 0 260px;
   }
 
   .main {
@@ -235,6 +238,7 @@ table {
     white-space: nowrap;
   }
 }
+
 </style>
 </head>
 <body>
