@@ -113,11 +113,11 @@ body {
 }
 
 .pf-line {
-  font-size: 18px;
+  font-size: 16px;
 }
 #annualReturn {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .green { color: lime; }
@@ -207,8 +207,8 @@ table {
 
   .settings {
     min-width: 260px;
-    max-width: 260px;
-    flex: 0 0 260px;
+    max-width: 300px;
+    flex: 0 0 300px;
   }
 
   .main {
@@ -218,7 +218,7 @@ table {
 
   #chartContainer,
   #yearlyChart {
-    width: 800px;
+    width: 100%;
   }
 
   #yearlyTable {
@@ -226,12 +226,7 @@ table {
   }
 
   #chartContainer canvas {
-    width: 800px;
-    height: 400px;
-  }
-
-  #yearlyChart {
-    height: 400px;
+    width: 100%;
   }
 
   #history {
@@ -292,7 +287,7 @@ table {
 
 <!-- MAIN -->
 <div class="main">
-  <h1>Trading Simulator</h1>
+  <h1>Trading Strategy Simulator</h1>
   <div id="autoControls">
     Auto-bet:
     <input type="number" id="autoCount" value="100">
@@ -314,8 +309,8 @@ table {
     <span class="pf-line">Annualized Return: <span id="annualReturn">0</span>%</span><br>
     <span class="pf-line">Profit Factor: <span id="statPF">0</span></span><br>
     <span class="pf-line">Max Drawdown: <span id="drawdown">0</span>%</span><br>
-    Avg Win Trade: <span id="statAvgWin" class="green">0</span>%<br>
-    Avg Loss Trade: <span id="statAvgLoss" class="red">0</span>%<br>
+    Avg Win Trade: <span id="statAvgWin">0</span>%<br>
+    Avg Loss Trade: <span id="statAvgLoss">0</span>%<br>
     Win %: <span id="statWinPct">0</span>%<br>
     Longest Losing Streak: <span id="longestLosingStreak">0</span>
   </div>
