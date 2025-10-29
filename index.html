@@ -472,7 +472,7 @@ function resetSimulation() {
   historyList.length = 0;
   document.getElementById('history').innerHTML = '';
   equityAfterTrade.length = 0; pnlTokens.length = 0; pctMoves.length = 0; wonFlags.length = 0;
-  equityData.labels = [0]; equityData.datasets[0].data = [tokens]; equityChart.update();
+  equityData.labels = [0]; equityData.datasets[0].data = [tokens]; equityChart.update('none');
   document.getElementById('tokens').textContent = tokens.toFixed(2);
   updateStats();
   clearYearlyOutputs();
@@ -581,7 +581,7 @@ function makeBet() {
   document.getElementById('history').innerHTML = historyList.join('<br>');
 
   document.getElementById('tokens').textContent = tokens.toFixed(2);
-  equityData.labels.push(betCount); equityData.datasets[0].data.push(tokens); equityChart.update();
+  equityData.labels.push(betCount); equityData.datasets[0].data.push(tokens); equityChart.update('none');
 
   updateStats();
 
