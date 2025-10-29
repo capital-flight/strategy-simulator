@@ -435,6 +435,15 @@ document.getElementById('autoStop').addEventListener('click', stopAuto);
 document.getElementById('autoRestart').addEventListener('click', () => { stopAuto(); resetSimulation(); });
 
 function startAuto() {
+  if (betCount === 0) {
+    startingTokensVal = parseFloat(document.getElementById('startingTokens').value);
+    tokens = startingTokensVal;
+    peak = tokens;
+    document.getElementById('tokens').textContent = tokens.toFixed(2);
+    equityData.labels = [0];
+    equityData.datasets[0].data = [tokens];
+    equityChart.update('none');
+  }
   const total = parseInt(document.getElementById('autoCount').value);
   const speed = parseInt(document.getElementById('autoSpeed').value);
   let count = 0;
